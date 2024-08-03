@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Firebase Realtime Database Example</title>
+</head>
+<body>
+    <h1>Firebase Realtime Database Example</h1>
+    <input type="text" id="dataInput" placeholder="Enter data">
+    <button onclick="writeData()">Save Data</button>
+    <button onclick="readData()">Retrieve Data</button>
+    <p id="dataOutput"></p>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
+
+    <!-- Your Firebase configuration and initialization -->
+    <script>
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBaPUtXk-uKcngoERQqQ1rE0wdT1wXKI2w",
+            authDomain: "test-fcb36.firebaseapp.com",
+            projectId: "test-fcb36",
+            storageBucket: "test-fcb36.appspot.com",
+            messagingSenderId: "735554314293",
+            appId: "1:735554314293:web:5d2bc3e66ff46b9df1517c",
+            databaseURL: "https://test-fcb36-default-rtdb.firebaseio.com/"
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        // Function to write data
+        function writeData() {
+            const data = document.getElementById('dataInput').value;
+            database.ref('example/').set({
+                data: data
+            }).then(() => {
+                alert('Data saved successfully');
+            }).catch((error) => {
+                alert('Failed to save data: ' + error.message);
+            });
+        }
+
+        // Function to read data
+        function readData() {
+            database.ref('example/').get().then((snapshot) => {
+                if (snapshot.exists()) {
+                    document.getElementById('dataOutput').innerText = snapshot.val().data;
+                } else {
+                    document.getElementById('dataOutput').innerText = 'No data available';
+                }
+            }).catch((error) => {
+                alert('Failed to retrieve data: ' + error.message);
+            });
+        }
+    </script>
+</body>
+</html>
