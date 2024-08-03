@@ -28,7 +28,9 @@
         };
 
         // Initialize Firebase
-        const app = firebase.initializeApp(firebaseConfig);
+        firebase.initializeApp(firebaseConfig);
+
+        // Initialize Realtime Database
         const database = firebase.database();
 
         // Function to write data
